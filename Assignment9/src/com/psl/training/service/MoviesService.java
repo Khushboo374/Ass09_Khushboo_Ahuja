@@ -12,8 +12,10 @@ import java.util.Scanner;
 import com.psl.training.Category;
 import com.psl.training.Language;
 import com.psl.training.Movies;
+import com.psl.training.dao.MoviesDao;
 
 public class MoviesService {
+	MoviesDao obj = new MoviesDao();
 	List <Movies> populateMovies(File file)
 	{
 		List<Movies> movieList = new ArrayList<>();
@@ -31,4 +33,17 @@ public class MoviesService {
 		}
 		return movieList;
 	}	
+	boolean addAllMoviesInDb(List<Movies> movies) {
+		return obj.addAllMoviesInDb(movies);
+	}
+	
+//	public static void main(String [] args) {
+//		MoviesService service = new MoviesService();
+//		File file = new File("C:\\Users\\HP\\git\\Ass09_Khushboo_Ahuja\\Assignment9\\Movies.txt");
+//		List<Movies> movies = new ArrayList<>();
+//		movies.addAll(service.populateMovies(file));
+//		for(Movies m : movies)
+//			System.out.println(m);
+//		service.addAllMoviesInDb(movies);
+//	}
 }
