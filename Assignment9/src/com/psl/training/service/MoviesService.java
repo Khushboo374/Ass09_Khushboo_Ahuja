@@ -2,6 +2,9 @@ package com.psl.training.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +19,7 @@ import com.psl.training.dao.MoviesDao;
 
 public class MoviesService {
 	MoviesDao obj = new MoviesDao();
-	List <Movies> populateMovies(File file)
+	public List <Movies> populateMovies(File file)
 	{
 		List<Movies> movieList = new ArrayList<>();
 		try {
@@ -32,14 +35,30 @@ public class MoviesService {
 			e.printStackTrace();
 		}
 		return movieList;
-	}	
-	boolean addAllMoviesInDb(List<Movies> movies) {
+	}
+	
+	public boolean addAllMoviesInDb(List<Movies> movies) {
 		return obj.addAllMoviesInDb(movies);
 	}
-	void addMovie(Movies movie,List<Movies> movies) {
+	
+	public void addMovie(Movies movie,List<Movies> movies) {
 		movies.add(movie);
 		obj.addMovie(movie);
 	}
+	public void serializeMovies(List<Movies> movies, String fileName) {
+		File file = new File(fileName);
+		try {
+			FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(movies);
+			oos.close();
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 //	public static void main(String [] args) {
 //		MoviesService service = new MoviesService();
