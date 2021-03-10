@@ -11,8 +11,13 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 import com.psl.training.Category;
 import com.psl.training.Language;
@@ -78,18 +83,72 @@ public class MoviesService {
 		}
 		return movies;
 	}
-
 	
-//	public static void main(String [] args) {
-//		MoviesService service = new MoviesService();
-//		File file = new File("C:\\Users\\HP\\git\\Ass09_Khushboo_Ahuja\\Assignment9\\Movies.txt");
-//		List<Movies> movies = new ArrayList<>();
-//		movies.addAll(service.populateMovies(file));
-//		service.addAllMoviesInDb(movies);
-//		String fileName = "object.txt";
-//		service.serializeMovies(movies, fileName);
-//		movies = service.deserializeMovie(fileName);
-//		for(Movies m : movies)
-//			System.out.println(m);
-//	}
+	public List<Movies> getMoviesRealeasedInYear(List<Movies> movies,int year){
+		List <Movies> moviesReleasedInYear = new ArrayList<>();
+		for(Movies m:movies) {
+			LocalDate date = m.getReleaseDate().toLocalDate();
+			if(date.getYear() == year)
+				moviesReleasedInYear.add(m);
+		}
+		return moviesReleasedInYear;
+	}
+	
+	public List<Movies> getMoviesByActor(List<Movies> movies,String...actorNames){
+		List<Movies> moviesByActor =  new ArrayList<>();
+		for(Movies m:movies) {
+			for(String actor:actorNames) {
+				if(m.getCasting().contains(actor)) {
+					moviesByActor.add(m);
+					break;
+				}
+			}
+		}
+		return moviesByActor;
+	}
+	
+	public void updateRatings(Movies movie,double rating,List<Movies> movies) {
+		if(movies.contains(movie)) {
+			movie.setRating(rating);
+			obj.updateRatings(movie, rating);
+			System.out.println("Rating Updated");
+		}
+		else {
+			System.out.println("Movie does not exist in the list.");
+		}
+	}
+	
+	public void updateBusiness(Movies movie, double amount,List<Movies> movies) {
+		if(movies.contains(movie)) {
+			movie.setTotalBusinessDone(amount);
+			obj.updateBusiness(movie, amount);
+			System.out.println("Business Updated");
+		}
+		else {
+			System.out.println("Movie does not exist in the list.");
+		}
+	}
+	
+	public Map<Language,Set<Movies>> businessDone(List<Movies> movies,double amount){
+		Set <Movies> movieSet = new TreeSet<>();
+		Map <Language,Set<Movies>> movieMap = new HashMap<>();
+		for(Movies movie:movies) {
+			if(movie.getTotalBusinessDone() > amount) {
+				movieSet.add(movie);
+				if(movieMap.containsKey(movie.getLanguage())) {
+					movieMap.get(movie.getLanguage()).add(movie);
+				}
+				else {
+					movieMap.put(movie.getLanguage(), movieSet);
+				}
+			}
+		}
+		
+//		Set<Entry<Language,Set<Movies>>> entries = movieMap.entrySet();
+//		for(Entry<Language,Set<Movies>> e:entries) {
+//			System.out.println(e.getKey() + " : " + e.getValue());
+//		}
+		return movieMap;
+	}
+	
 }

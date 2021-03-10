@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-public class Movies implements Serializable {
+public class Movies implements Serializable,Comparable<Movies> {
 	private int movieId;
 	private String movieName; 
 	private Category movieType;
@@ -101,6 +101,70 @@ public class Movies implements Serializable {
 		return "Movies [movieId=" + movieId + ", movieName=" + movieName + ", movieType=" + movieType + ", language="
 				+ language + ", releaseDate=" + releaseDate + ", casting=" + casting + ", rating=" + rating
 				+ ", totalBusinessDone=" + totalBusinessDone + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((casting == null) ? 0 : casting.hashCode());
+		result = prime * result + ((language == null) ? 0 : language.hashCode());
+		result = prime * result + movieId;
+		result = prime * result + ((movieName == null) ? 0 : movieName.hashCode());
+		result = prime * result + ((movieType == null) ? 0 : movieType.hashCode());
+		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
+		result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
+		result = prime * result + ((totalBusinessDone == null) ? 0 : totalBusinessDone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Movies other = (Movies) obj;
+		if (casting == null) {
+			if (other.casting != null)
+				return false;
+		} else if (!casting.equals(other.casting))
+			return false;
+		if (language != other.language)
+			return false;
+		if (movieId != other.movieId)
+			return false;
+		if (movieName == null) {
+			if (other.movieName != null)
+				return false;
+		} else if (!movieName.equals(other.movieName))
+			return false;
+		if (movieType != other.movieType)
+			return false;
+		if (rating == null) {
+			if (other.rating != null)
+				return false;
+		} else if (!rating.equals(other.rating))
+			return false;
+		if (releaseDate == null) {
+			if (other.releaseDate != null)
+				return false;
+		} else if (!releaseDate.equals(other.releaseDate))
+			return false;
+		if (totalBusinessDone == null) {
+			if (other.totalBusinessDone != null)
+				return false;
+		} else if (!totalBusinessDone.equals(other.totalBusinessDone))
+			return false;
+		return true;
+	}
+
+	@Override
+	public int compareTo(Movies o) {
+		// TODO Auto-generated method stub
+		return (-1) * this.getTotalBusinessDone().compareTo(o.getTotalBusinessDone());
 	}
 	
 	
