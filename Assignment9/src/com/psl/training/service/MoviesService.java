@@ -36,6 +36,10 @@ public class MoviesService {
 	boolean addAllMoviesInDb(List<Movies> movies) {
 		return obj.addAllMoviesInDb(movies);
 	}
+	void addMovie(Movies movie,List<Movies> movies) {
+		movies.add(movie);
+		obj.addMovie(movie);
+	}
 	
 //	public static void main(String [] args) {
 //		MoviesService service = new MoviesService();
