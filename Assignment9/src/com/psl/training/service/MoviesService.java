@@ -11,8 +11,13 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 import com.psl.training.Category;
 import com.psl.training.Language;
@@ -123,24 +128,27 @@ public class MoviesService {
 			System.out.println("Movie does not exist in the list.");
 		}
 	}
-//	public static void main(String [] args) {
-//		MoviesService service = new MoviesService();
-//		File file = new File("C:\\Users\\HP\\git\\Ass09_Khushboo_Ahuja\\Assignment9\\Movies.txt");
-//		List<Movies> movies = new ArrayList<>();
-//		movies.addAll(service.populateMovies(file));
-//		service.addAllMoviesInDb(movies);
-//		String fileName = "object.txt";
-//		service.serializeMovies(movies, fileName);
-//		movies = service.deserializeMovie(fileName);
-//		movies = service.getMoviesRealeasedInYear(movies, 2010);
-//		for(Movies m : movies)
-//			System.out.println(m);
-//		movies = service.getMoviesByActor(movies,"Ranbeer Kapoor");
-//		System.out.println(movies.size());
-//		service.updateRatings(movies.get(1), 8 , movies);
-//		for(Movies m : movies) {
-//			System.out.println(m);
+	
+	public Map<Language,Set<Movies>> businessDone(List<Movies> movies,double amount){
+		Set <Movies> movieSet = new TreeSet<>();
+		Map <Language,Set<Movies>> movieMap = new HashMap<>();
+		for(Movies movie:movies) {
+			if(movie.getTotalBusinessDone() > amount) {
+				movieSet.add(movie);
+				if(movieMap.containsKey(movie.getLanguage())) {
+					movieMap.get(movie.getLanguage()).add(movie);
+				}
+				else {
+					movieMap.put(movie.getLanguage(), movieSet);
+				}
+			}
+		}
+		
+//		Set<Entry<Language,Set<Movies>>> entries = movieMap.entrySet();
+//		for(Entry<Language,Set<Movies>> e:entries) {
+//			System.out.println(e.getKey() + " : " + e.getValue());
 //		}
-//			
-//	}
+		return movieMap;
+	}
+	
 }
