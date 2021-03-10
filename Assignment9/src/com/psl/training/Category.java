@@ -1,0 +1,15 @@
+package com.psl.training;
+
+public enum Category {
+	ACTION,
+	COMEDY,
+	DRAMA,
+	FANTASY,
+	HORROR,
+	MYSTERY,
+	ROMANCE,
+	THRILLER,
+	CRIME_THRILLER,
+	TECHNO_THRILLER,
+	SCIENCE_FICTION;
+}
