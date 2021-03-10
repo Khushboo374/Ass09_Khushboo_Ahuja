@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -89,6 +90,19 @@ public class MoviesService {
 		return moviesReleasedInYear;
 	}
 	
+	public List<Movies> getMoviesByActor(List<Movies> movies,String...actorNames){
+		List<Movies> moviesByActor =  new ArrayList<>();
+		for(Movies m:movies) {
+			for(String actor:actorNames) {
+				if(m.getCasting().contains(actor)) {
+					moviesByActor.add(m);
+					break;
+				}
+			}
+		}
+		return moviesByActor;
+	}
+	
 //	public static void main(String [] args) {
 //		MoviesService service = new MoviesService();
 //		File file = new File("C:\\Users\\HP\\git\\Ass09_Khushboo_Ahuja\\Assignment9\\Movies.txt");
@@ -101,5 +115,11 @@ public class MoviesService {
 //		movies = service.getMoviesRealeasedInYear(movies, 2010);
 //		for(Movies m : movies)
 //			System.out.println(m);
+//		movies = service.getMoviesByActor(movies,"Ranbeer Kapoor");
+//		System.out.println(movies.size());
+//		for(Movies m : movies) {
+//			System.out.println(m);
+//		}
+//			
 //	}
 }
