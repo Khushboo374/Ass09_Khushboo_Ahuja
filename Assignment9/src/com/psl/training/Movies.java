@@ -1,9 +1,10 @@
 package com.psl.training;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-public class Movies {
+public class Movies implements Serializable {
 	private int movieId;
 	private String movieName; 
 	private Category movieType;

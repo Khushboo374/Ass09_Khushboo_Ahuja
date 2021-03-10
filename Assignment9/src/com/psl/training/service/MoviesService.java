@@ -1,9 +1,11 @@
 package com.psl.training.service;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -45,6 +47,7 @@ public class MoviesService {
 		movies.add(movie);
 		obj.addMovie(movie);
 	}
+	
 	public void serializeMovies(List<Movies> movies, String fileName) {
 		File file = new File(fileName);
 		try {
@@ -59,14 +62,34 @@ public class MoviesService {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Movies> deserializeMovie(String filename){
+		List <Movies> movies = new ArrayList<>();
+		File file = new File(filename);
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			movies = (List<Movies>) ois.readObject();
+			ois.close();
+			fis.close();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return movies;
+	}
+
 	
 //	public static void main(String [] args) {
 //		MoviesService service = new MoviesService();
 //		File file = new File("C:\\Users\\HP\\git\\Ass09_Khushboo_Ahuja\\Assignment9\\Movies.txt");
 //		List<Movies> movies = new ArrayList<>();
 //		movies.addAll(service.populateMovies(file));
+//		service.addAllMoviesInDb(movies);
+//		String fileName = "object.txt";
+//		service.serializeMovies(movies, fileName);
+//		movies = service.deserializeMovie(fileName);
 //		for(Movies m : movies)
 //			System.out.println(m);
-//		service.addAllMoviesInDb(movies);
 //	}
 }
