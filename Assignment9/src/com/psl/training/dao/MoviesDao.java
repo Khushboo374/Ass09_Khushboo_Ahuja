@@ -77,4 +77,17 @@ public class MoviesDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateBusiness(Movies movie, double amount) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement("update movies set totalBusinessdone = ? where movieId = ?");
+			pstmt.setDouble(1, amount);
+			pstmt.setInt(2, movie.getMovieId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

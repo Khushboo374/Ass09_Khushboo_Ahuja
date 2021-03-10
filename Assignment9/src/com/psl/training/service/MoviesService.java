@@ -113,6 +113,16 @@ public class MoviesService {
 		}
 	}
 	
+	public void updateBusiness(Movies movie, double amount,List<Movies> movies) {
+		if(movies.contains(movie)) {
+			movie.setTotalBusinessDone(amount);
+			obj.updateBusiness(movie, amount);
+			System.out.println("Business Updated");
+		}
+		else {
+			System.out.println("Movie does not exist in the list.");
+		}
+	}
 //	public static void main(String [] args) {
 //		MoviesService service = new MoviesService();
 //		File file = new File("C:\\Users\\HP\\git\\Ass09_Khushboo_Ahuja\\Assignment9\\Movies.txt");
