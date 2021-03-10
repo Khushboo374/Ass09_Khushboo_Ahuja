@@ -78,7 +78,16 @@ public class MoviesService {
 		}
 		return movies;
 	}
-
+	
+	public List<Movies> getMoviesRealeasedInYear(List<Movies> movies,int year){
+		List <Movies> moviesReleasedInYear = new ArrayList<>();
+		for(Movies m:movies) {
+			LocalDate date = m.getReleaseDate().toLocalDate();
+			if(date.getYear() == year)
+				moviesReleasedInYear.add(m);
+		}
+		return moviesReleasedInYear;
+	}
 	
 //	public static void main(String [] args) {
 //		MoviesService service = new MoviesService();
@@ -89,6 +98,7 @@ public class MoviesService {
 //		String fileName = "object.txt";
 //		service.serializeMovies(movies, fileName);
 //		movies = service.deserializeMovie(fileName);
+//		movies = service.getMoviesRealeasedInYear(movies, 2010);
 //		for(Movies m : movies)
 //			System.out.println(m);
 //	}
