@@ -11,7 +11,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -103,6 +102,17 @@ public class MoviesService {
 		return moviesByActor;
 	}
 	
+	public void updateRatings(Movies movie,double rating,List<Movies> movies) {
+		if(movies.contains(movie)) {
+			movie.setRating(rating);
+			obj.updateRatings(movie, rating);
+			System.out.println("Rating Updated");
+		}
+		else {
+			System.out.println("Movie does not exist in the list.");
+		}
+	}
+	
 //	public static void main(String [] args) {
 //		MoviesService service = new MoviesService();
 //		File file = new File("C:\\Users\\HP\\git\\Ass09_Khushboo_Ahuja\\Assignment9\\Movies.txt");
@@ -117,6 +127,7 @@ public class MoviesService {
 //			System.out.println(m);
 //		movies = service.getMoviesByActor(movies,"Ranbeer Kapoor");
 //		System.out.println(movies.size());
+//		service.updateRatings(movies.get(1), 8 , movies);
 //		for(Movies m : movies) {
 //			System.out.println(m);
 //		}

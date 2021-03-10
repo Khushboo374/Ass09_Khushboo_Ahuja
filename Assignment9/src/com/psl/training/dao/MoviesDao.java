@@ -39,6 +39,7 @@ public class MoviesDao {
 		}
 		return true;
 	}
+	
 	public void addMovie(Movies m) {
 		PreparedStatement pstmt = null;
 		try {
@@ -58,6 +59,19 @@ public class MoviesDao {
 			     pstmt.executeUpdate();
 			}
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateRatings(Movies movie,double rating) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement("update movies set rating = ? where movieId = ?");
+			pstmt.setDouble(1, rating);
+			pstmt.setInt(2, movie.getMovieId());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
